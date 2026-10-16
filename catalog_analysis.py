@@ -102,3 +102,20 @@ def top_n_by_rating(movies, n=3):
     for movie in sorted(movies, key=lambda x: x["rating"], reverse=True)[:n]:
         result.append((movie["title"], movie["rating"]))
     return result
+
+def count_by_genre(movies):
+    result = {}
+    for movie in movies:
+        for genre in movie["genres"]:
+            result[genre] = result.get(genre, 0) + 1
+    return result
+
+def actor_filmography(movies):
+    result = {}
+    for movie in movies:
+        for actor in movie["actors"]:
+            result.setdefault(actor, []).append(movie["title"])
+    return result
+
+avg_rate = average_rating(movies) 
+good_movies = {movie["title"]: movie["rating"] for movie in movies if movie["rating"] > avg_rate}
